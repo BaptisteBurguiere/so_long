@@ -6,7 +6,7 @@
 /*   By: bburguie <bburguie@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 18:42:03 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/05 19:05:21 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/05 23:12:48 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ bool	check_char(char c, t_map *map, t_check_map_vars *vars)
 		vars->is_exit = true;
 	}
 	else if (c == ITEM)
+	{
+		map->nb_items += 1;
 		vars->is_item = true;
+	}
 	else if (c != WALL && c != EMPTY)
 		return (return_error("so_long Error:\nInvalid character\n"));
 	return (true);

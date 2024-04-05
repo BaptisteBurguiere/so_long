@@ -7,7 +7,9 @@ CFILES = main.c \
 		map_parser/check_file.c \
 		map_parser/check_line.c \
 		map_parser/fill_map.c \
-		utils/utils.c
+		map_parser/floodfill.c \
+		utils/utils.c \
+		utils/utils2.c \
 
 OFILES = $(CFILES:.c=.o)
 
@@ -36,7 +38,7 @@ fclean: clean
 
 re: fclean $(NAME)
 
-n:
+norm:
 	norminette -R CheckDefine $(CFILES) so_long.h
 
-.PHONY:  all clean fclean re
+.PHONY:  all clean fclean re norm

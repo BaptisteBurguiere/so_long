@@ -6,7 +6,7 @@
 /*   By: bburguie <bburguie@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 18:38:30 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/05 18:46:37 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/05 23:16:28 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,21 @@ static char	*remove_nl(char *line)
 	return (line);
 }
 
+static void	map_init(t_map *map)
+{
+	map->map = malloc(10000 * sizeof(char *));
+	map->height = 0;
+	map->nb_items = 0;
+	map->width = 0;
+	map->player[0] = 0;
+	map->player[1] = 0;
+}
+
 bool	fill_map(t_map *map, int file_fd)
 {
 	char	*line;
 
-	map->map = malloc(10000 * sizeof(char *));
-	map->height = 0;
+	map_init(map);
 	line = get_next_line(file_fd);
 	while (line && is_line_empty(line))
 	{

@@ -6,7 +6,7 @@
 /*   By: bburguie <bburguie@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 18:17:57 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/05 18:51:58 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/05 23:18:11 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,11 @@ t_map	*parse_file(char *file_path)
 		return (NULL);
 	}
 	if (!check_map(map))
+	{
+		destroy_map(map);
+		return (NULL);
+	}
+	if (!floodfill(map))
 	{
 		destroy_map(map);
 		return (NULL);
