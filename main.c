@@ -6,7 +6,7 @@
 /*   By: bburguie <bburguie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 18:14:24 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/09 14:15:45 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/09 17:09:54 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	main(int argc, char **argv)
 		destroy_map(map);
 		exit(EXIT_FAILURE);
 	}
+	display_map(&view_vars, map);
+	display_player(&view_vars, map->player);
 	mlx_loop(view_vars.mlx);
 	destroy_view(&view_vars);
 	destroy_map(map);

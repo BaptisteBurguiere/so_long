@@ -6,7 +6,7 @@
 /*   By: bburguie <bburguie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 18:27:37 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/09 14:05:55 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/09 17:05:41 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,23 @@
 # include <stdio.h>
 
 # define WALL '1'
-# define EMPTY '0'
+# define FLOOR '0'
 # define ITEM 'C'
 # define EXIT 'E'
 # define PLAYER 'P'
 # define FILL '2'
-# define TEXTURE_FLOOR "textures/brick.png"
+# define TEXTURE_TOP_WALL "textures/top_wall.png"
+# define TEXTURE_BOTTOM_WALL "textures/bottom_wall.png"
+# define TEXTURE_LEFT_WALL "textures/left_wall.png"
+# define TEXTURE_RIGHT_WALL "textures/right_wall.png"
+# define TEXTURE_FLOOR "textures/floor.png"
+# define TEXTURE_ITEM "textures/item.png"
+# define TEXTURE_PLAYER "textures/player.png"
+# define TEXTURE_EXIT_CLOSE "textures/exit_closed.png"
+# define TEXTURE_EXIT_OPEN "textures/exit_opened.png"
 # define WIDTH 900
 # define HEIGHT 900
+# define BLOCK_SIZE 64
 
 typedef struct s_map
 {
@@ -68,11 +77,15 @@ typedef struct s_texture
 
 typedef struct s_view_vars
 {
-	t_texture	wall;
+	t_texture	t_wall;
+	t_texture	b_wall;
+	t_texture	l_wall;
+	t_texture	r_wall;
 	t_texture	floor;
 	t_texture	player;
 	t_texture	item;
-	t_texture	exit;
+	t_texture	exit_o;
+	t_texture	exit_c;
 	mlx_t		*mlx;
 	mlx_image_t	*img;
 }	t_view_vars;
@@ -100,5 +113,7 @@ bool	init_view(t_view_vars *vars);
 void	destroy_view(t_view_vars *vars);
 bool	load_textures(t_view_vars *vars);
 void	destroy_texture(t_texture *texture);
+void	display_map(t_view_vars *vars, t_map *map);
+void	display_player(t_view_vars *vars, size_t player[2]);
 
 #endif

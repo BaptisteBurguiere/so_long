@@ -6,7 +6,7 @@
 /*   By: bburguie <bburguie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 15:30:19 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/09 14:17:51 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/09 16:48:27 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,36 @@ void	convert_texture(t_texture *my_texture, mlx_texture_t *mlx_texture)
 	}
 }
 
+bool	load_textures_split(t_view_vars *vars, mlx_texture_t *texture)
+{
+	texture = mlx_load_png(TEXTURE_RIGHT_WALL);
+	if (!texture)
+		return (false);
+	convert_texture(&(vars->r_wall), texture);
+	mlx_delete_texture(texture);
+	texture = mlx_load_png(TEXTURE_EXIT_OPEN);
+	if (!texture)
+		return (false);
+	convert_texture(&(vars->exit_o), texture);
+	mlx_delete_texture(texture);
+	texture = mlx_load_png(TEXTURE_EXIT_CLOSE);
+	if (!texture)
+		return (false);
+	convert_texture(&(vars->exit_c), texture);
+	mlx_delete_texture(texture);
+	texture = mlx_load_png(TEXTURE_ITEM);
+	if (!texture)
+		return (false);
+	convert_texture(&(vars->item), texture);
+	mlx_delete_texture(texture);
+	texture = mlx_load_png(TEXTURE_PLAYER);
+	if (!texture)
+		return (false);
+	convert_texture(&(vars->player), texture);
+	mlx_delete_texture(texture);
+	return (true);
+}
+
 bool	load_textures(t_view_vars *vars)
 {
 	mlx_texture_t	*texture;
@@ -52,8 +82,25 @@ bool	load_textures(t_view_vars *vars)
 	texture = mlx_load_png(TEXTURE_FLOOR);
 	if (!texture)
 		return (false);
-	convert_texture(&(vars->wall), texture);
+	convert_texture(&(vars->floor), texture);
 	mlx_delete_texture(texture);
+	texture = mlx_load_png(TEXTURE_TOP_WALL);
+	if (!texture)
+		return (false);
+	convert_texture(&(vars->t_wall), texture);
+	mlx_delete_texture(texture);
+	texture = mlx_load_png(TEXTURE_BOTTOM_WALL);
+	if (!texture)
+		return (false);
+	convert_texture(&(vars->b_wall), texture);
+	mlx_delete_texture(texture);
+	texture = mlx_load_png(TEXTURE_LEFT_WALL);
+	if (!texture)
+		return (false);
+	convert_texture(&(vars->l_wall), texture);
+	mlx_delete_texture(texture);
+	if (!load_textures_split(vars, texture))
+		return (false);
 	return (true);
 }
 
@@ -61,7 +108,7 @@ void	destroy_texture(t_texture *texture)
 {
 	size_t	i;
 
-	if (!texture)
+	if (!texture->tab)
 		return ;
 	i = 0;
 	while (i < texture->height)

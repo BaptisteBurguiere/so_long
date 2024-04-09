@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   floodfill.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bburguie <bburguie@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: bburguie <bburguie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 23:18:26 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/06 01:07:29 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/09 17:26:56 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,19 @@
 
 static void	check_next(char **map, size_t x, size_t y)
 {
-	if (map[y][x] == EMPTY || map[y][x] == ITEM)
+	if (map[y][x] == FLOOR || map[y][x] == ITEM || map[y][x] == EXIT)
 		map[y][x] = FILL;
-	if (map[y - 1][x] == EMPTY || map[y - 1][x] == ITEM)
+	if (map[y - 1][x] == FLOOR || map[y - 1][x] == ITEM
+		|| map[y - 1][x] == EXIT)
 		check_next(map, x, y - 1);
-	if (map[y + 1][x] == EMPTY || map[y + 1][x] == ITEM)
+	if (map[y + 1][x] == FLOOR || map[y + 1][x] == ITEM
+		|| map[y + 1][x] == EXIT)
 		check_next(map, x, y + 1);
-	if (map[y][x - 1] == EMPTY || map[y][x - 1] == ITEM)
+	if (map[y][x - 1] == FLOOR || map[y][x - 1] == ITEM
+		|| map[y][x - 1] == EXIT)
 		check_next(map, x - 1, y);
-	if (map[y][x + 1] == EMPTY || map[y][x + 1] == ITEM)
+	if (map[y][x + 1] == FLOOR || map[y][x + 1] == ITEM
+		|| map[y][x + 1] == EXIT)
 		check_next(map, x + 1, y);
 }
 
@@ -32,23 +36,8 @@ static bool	check_char(char **map_dup, t_floodfill_vars *vars)
 		return (return_error("so_long Error:\nImpossible to access an item\n"));
 	else if (map_dup[vars->i][vars->j] == EXIT)
 	{
-		if (map_dup[vars->i - 1][vars->j] == FILL
-			|| map_dup[vars->i - 1][vars->j] == PLAYER)
-			vars->is_exit = true;
-		else if (map_dup[vars->i + 1][vars->j] == FILL
-			|| map_dup[vars->i + 1][vars->j] == PLAYER)
-			vars->is_exit = true;
-		else if (map_dup[vars->i][vars->j - 1] == FILL
-			|| map_dup[vars->i][vars->j - 1] == PLAYER)
-			vars->is_exit = true;
-		else if (map_dup[vars->i][vars->j + 1] == FILL
-			|| map_dup[vars->i][vars->j - 1] == PLAYER)
-			vars->is_exit = true;
-		if (!vars->is_exit)
-		{
-			print_error("so_long Error:\nImpossible to access the exit\n");
-			return (false);
-		}
+		print_error("so_long Error:\nImpossible to access the exit\n");
+		return (false);
 	}
 	return (true);
 }
