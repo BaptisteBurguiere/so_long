@@ -6,7 +6,7 @@
 /*   By: bburguie <bburguie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:34:59 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/09 16:41:13 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/09 18:11:11 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ bool	init_view(t_view_vars *vars)
 	vars->player.tab = NULL;
 	vars->r_wall.tab = NULL;
 	vars->t_wall.tab = NULL;
+	vars->f_wall.tab = NULL;
+	vars->br_wall.tab = NULL;
+	vars->bl_wall.tab = NULL;
 	if (!load_textures(vars))
 		return (false);
 	vars->mlx = mlx_init(WIDTH, HEIGHT, "so_long", false);
@@ -49,6 +52,9 @@ void	destroy_view(t_view_vars *vars)
 	destroy_texture(&(vars->b_wall));
 	destroy_texture(&(vars->l_wall));
 	destroy_texture(&(vars->r_wall));
+	destroy_texture(&(vars->f_wall));
+	destroy_texture(&(vars->br_wall));
+	destroy_texture(&(vars->bl_wall));
 	if (vars->mlx && vars->img)
 		mlx_delete_image(vars->mlx, vars->img);
 	if (vars->mlx)

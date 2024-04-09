@@ -6,7 +6,7 @@
 /*   By: bburguie <bburguie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 15:30:19 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/09 16:48:27 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/09 18:12:00 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,61 +45,43 @@ void	convert_texture(t_texture *my_texture, mlx_texture_t *mlx_texture)
 	}
 }
 
-bool	load_textures_split(t_view_vars *vars, mlx_texture_t *texture)
+bool	load_texture(t_texture *texture, char *path)
 {
-	texture = mlx_load_png(TEXTURE_RIGHT_WALL);
-	if (!texture)
+	mlx_texture_t	*t;
+
+	t = mlx_load_png(path);
+	if (!t)
 		return (false);
-	convert_texture(&(vars->r_wall), texture);
-	mlx_delete_texture(texture);
-	texture = mlx_load_png(TEXTURE_EXIT_OPEN);
-	if (!texture)
-		return (false);
-	convert_texture(&(vars->exit_o), texture);
-	mlx_delete_texture(texture);
-	texture = mlx_load_png(TEXTURE_EXIT_CLOSE);
-	if (!texture)
-		return (false);
-	convert_texture(&(vars->exit_c), texture);
-	mlx_delete_texture(texture);
-	texture = mlx_load_png(TEXTURE_ITEM);
-	if (!texture)
-		return (false);
-	convert_texture(&(vars->item), texture);
-	mlx_delete_texture(texture);
-	texture = mlx_load_png(TEXTURE_PLAYER);
-	if (!texture)
-		return (false);
-	convert_texture(&(vars->player), texture);
-	mlx_delete_texture(texture);
+	convert_texture(texture, t);
+	mlx_delete_texture(t);
 	return (true);
 }
 
 bool	load_textures(t_view_vars *vars)
 {
-	mlx_texture_t	*texture;
-
-	texture = mlx_load_png(TEXTURE_FLOOR);
-	if (!texture)
+	if (!load_texture(&(vars->floor), TEXTURE_FLOOR))
 		return (false);
-	convert_texture(&(vars->floor), texture);
-	mlx_delete_texture(texture);
-	texture = mlx_load_png(TEXTURE_TOP_WALL);
-	if (!texture)
+	if (!load_texture(&(vars->t_wall), TEXTURE_TOP_WALL))
 		return (false);
-	convert_texture(&(vars->t_wall), texture);
-	mlx_delete_texture(texture);
-	texture = mlx_load_png(TEXTURE_BOTTOM_WALL);
-	if (!texture)
+	if (!load_texture(&(vars->b_wall), TEXTURE_BOTTOM_WALL))
 		return (false);
-	convert_texture(&(vars->b_wall), texture);
-	mlx_delete_texture(texture);
-	texture = mlx_load_png(TEXTURE_LEFT_WALL);
-	if (!texture)
+	if (!load_texture(&(vars->l_wall), TEXTURE_LEFT_WALL))
 		return (false);
-	convert_texture(&(vars->l_wall), texture);
-	mlx_delete_texture(texture);
-	if (!load_textures_split(vars, texture))
+	if (!load_texture(&(vars->r_wall), TEXTURE_RIGHT_WALL))
+		return (false);
+	if (!load_texture(&(vars->f_wall), TEXTURE_FULL_WALL))
+		return (false);
+	if (!load_texture(&(vars->br_wall), TEXTURE_BOTTOM_RIGHT_WALL))
+		return (false);
+	if (!load_texture(&(vars->bl_wall), TEXTURE_BOTTOM_LEFT_WALL))
+		return (false);
+	if (!load_texture(&(vars->exit_o), TEXTURE_EXIT_OPEN))
+		return (false);
+	if (!load_texture(&(vars->exit_c), TEXTURE_EXIT_CLOSE))
+		return (false);
+	if (!load_texture(&(vars->item), TEXTURE_ITEM))
+		return (false);
+	if (!load_texture(&(vars->player), TEXTURE_PLAYER))
 		return (false);
 	return (true);
 }

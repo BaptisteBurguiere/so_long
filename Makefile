@@ -13,6 +13,7 @@ CFILES = main.c \
 		view/load_textures.c \
 		view/init_view.c \
 		view/display_map.c \
+		view/get_texture.c \
 
 OFILES = $(CFILES:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: bburguie <bburguie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 18:27:37 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/09 17:05:41 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/09 18:10:30 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@
 # define TEXTURE_BOTTOM_WALL "textures/bottom_wall.png"
 # define TEXTURE_LEFT_WALL "textures/left_wall.png"
 # define TEXTURE_RIGHT_WALL "textures/right_wall.png"
+# define TEXTURE_FULL_WALL "textures/wall_full.png"
+# define TEXTURE_BOTTOM_RIGHT_WALL "textures/bottom_right_wall.png"
+# define TEXTURE_BOTTOM_LEFT_WALL "textures/bottom_left_wall.png"
 # define TEXTURE_FLOOR "textures/floor.png"
 # define TEXTURE_ITEM "textures/item.png"
 # define TEXTURE_PLAYER "textures/player.png"
@@ -81,6 +84,9 @@ typedef struct s_view_vars
 	t_texture	b_wall;
 	t_texture	l_wall;
 	t_texture	r_wall;
+	t_texture	f_wall;
+	t_texture	br_wall;
+	t_texture	bl_wall;
 	t_texture	floor;
 	t_texture	player;
 	t_texture	item;
@@ -92,28 +98,30 @@ typedef struct s_view_vars
 
 // Map parser
 
-t_map	*map_parse(int argc, char **argv);
-bool	check_file(char *file_path);
-bool	fill_map(t_map *map, int file_fd);
-bool	check_line(char *line, t_map *map, size_t i, t_check_map_vars *vars);
-bool	floodfill(t_map *map);
+t_map		*map_parse(int argc, char **argv);
+bool		check_file(char *file_path);
+bool		fill_map(t_map *map, int file_fd);
+bool		check_line(char *line, t_map *map, size_t i,
+				t_check_map_vars *vars);
+bool		floodfill(t_map *map);
 
 // Utils
 
-void	print_error(char *err);
-bool	return_error(char *err);
-char	*get_next_line(int fd);
-void	destroy_map(t_map *map);
-size_t	ft_strlen(char *str);
-char	*ft_strdup(char *str);
+void		print_error(char *err);
+bool		return_error(char *err);
+char		*get_next_line(int fd);
+void		destroy_map(t_map *map);
+size_t		ft_strlen(char *str);
+char		*ft_strdup(char *str);
 
 // View
 
-bool	init_view(t_view_vars *vars);
-void	destroy_view(t_view_vars *vars);
-bool	load_textures(t_view_vars *vars);
-void	destroy_texture(t_texture *texture);
-void	display_map(t_view_vars *vars, t_map *map);
-void	display_player(t_view_vars *vars, size_t player[2]);
+bool		init_view(t_view_vars *vars);
+void		destroy_view(t_view_vars *vars);
+bool		load_textures(t_view_vars *vars);
+void		destroy_texture(t_texture *texture);
+void		display_map(t_view_vars *vars, t_map *map);
+void		display_player(t_view_vars *vars, size_t player[2]);
+t_texture	*get_texture(t_view_vars *vars, t_map *map, size_t x, size_t y);
 
 #endif

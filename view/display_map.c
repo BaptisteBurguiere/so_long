@@ -6,7 +6,7 @@
 /*   By: bburguie <bburguie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:02:05 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/09 17:09:30 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/09 17:40:42 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,6 @@ unsigned long	get_color(size_t x, size_t y, t_texture *texture)
 	j = (size_t)(((float)x / (float)BLOCK_SIZE)
 			* (float)texture->width);
 	return (texture->tab[i][j]);
-}
-
-t_texture	*get_texture(t_view_vars *vars, t_map *map, size_t x, size_t y)
-{
-	if (map->map[y][x] == FLOOR)
-		return (&(vars->floor));
-	else if (map->map[y][x] == EXIT && map->nb_items > 0)
-		return (&(vars->exit_c));
-	else if (map->map[y][x] == EXIT)
-		return (&(vars->exit_o));
-	else if (map->map[y][x] == ITEM)
-		return (&(vars->item));
-	else if (map->map[y][x] == PLAYER)
-		return (&(vars->player));
-	else if (map->map[y][x] == WALL)
-		return (&(vars->t_wall));
-	else
-		return (&(vars->t_wall));
-	return (NULL);
 }
 
 void	display_elt(t_view_vars *vars, t_map *map, size_t x, size_t y)
