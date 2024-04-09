@@ -1,5 +1,5 @@
 NAME = so_long
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 
 CFILES = main.c \
@@ -10,6 +10,8 @@ CFILES = main.c \
 		map_parser/floodfill.c \
 		utils/utils.c \
 		utils/utils2.c \
+		view/load_textures.c \
+		view/init_view.c \
 
 OFILES = $(CFILES:.c=.o)
 
@@ -17,7 +19,7 @@ MLX_DIR = MLX42/
 MLX_LIB = MLX42/build/libmlx42.a
 
 $(NAME): $(MLX_LIB) $(OFILES)
-	$(CC) $(CFLAGS) -IMLX42/include -LMLX42/build $(OFILES) -o $(NAME) -ldl -lglfw -pthread -lmlx42
+	$(CC) $(CFLAGS) -IMLX42/include -LMLX42/build $(OFILES) -o $(NAME) -ldl -lglfw -pthread -lmlx42 -lm
 
 all: $(NAME) clean
 
@@ -35,6 +37,7 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
+	# make -C MLX42/build clean
 
 re: fclean $(NAME)
 
