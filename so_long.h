@@ -6,7 +6,7 @@
 /*   By: bburguie <bburguie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 18:27:37 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/10 14:47:39 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:29:10 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_map
 	size_t	width;
 	size_t	player[2];
 	size_t	nb_items;
+	bool	is_running;
 }	t_map;
 
 typedef struct s_check_map_vars
@@ -101,6 +102,21 @@ typedef struct s_view_vars
 	size_t		height;
 }	t_view_vars;
 
+typedef struct s_can_move
+{
+	bool	up;
+	bool	down;
+	bool	right;
+	bool	left;
+}	t_can_move;
+
+typedef struct s_controller
+{
+	t_map		*map;
+	t_view_vars	*view;
+	t_can_move	can_move;
+}	t_controller;
+
 typedef enum e_wall
 {
 	wall_top = '1',
@@ -114,33 +130,43 @@ typedef enum e_wall
 	wall_r_bottom_left = '9',
 }	t_wall;
 
+typedef enum e_move
+{
+	up,
+	down,
+	left,
+	right
+}	t_move;
+
 // Map parser
 
-t_map		*map_parse(int argc, char **argv);
-bool		check_file(char *file_path);
-bool		fill_map(t_map *map, int file_fd);
-bool		check_line(char *line, t_map *map, size_t i,
-				t_check_map_vars *vars);
-bool		floodfill(t_map *map);
+t_map			*map_parse(int argc, char **argv);
+bool			check_file(char *file_path);
+bool			fill_map(t_map *map, int file_fd);
+bool			check_line(char *line, t_map *map, size_t i,
+					t_check_map_vars *vars);
+bool			floodfill(t_map *map);
 
 // Utils
 
-void		print_error(char *err);
-bool		return_error(char *err);
-char		*get_next_line(int fd);
-void		destroy_map(t_map *map);
-size_t		ft_strlen(char *str);
-char		*ft_strdup(char *str);
-bool		is_wall(char c);
+void			print_error(char *err);
+bool			return_error(char *err);
+char			*get_next_line(int fd);
+void			destroy_map(t_map *map);
+size_t			ft_strlen(char *str);
+char			*ft_strdup(char *str);
+bool			is_wall(char c);
+unsigned long	rgba_to_long(int r, int g, int b, int a);
 
 // View
 
-bool		init_view(t_view_vars *vars, t_map *map);
-void		destroy_view(t_view_vars *vars);
-bool		load_textures(t_view_vars *vars);
-void		destroy_texture(t_texture *texture);
-void		display_map(t_view_vars *vars, t_map *map);
-void		display_player(t_view_vars *vars, size_t player[2]);
-t_texture	*get_texture(t_view_vars *vars, t_map *map, size_t x, size_t y);
+bool			init_view(t_view_vars *vars, t_map *map);
+void			destroy_view(t_view_vars *vars);
+bool			load_textures(t_view_vars *vars);
+void			destroy_texture(t_texture *texture);
+void			display_map(t_view_vars *vars, t_map *map);
+void			display_player(t_view_vars *vars, size_t player[2]);
+t_texture		*get_texture(t_view_vars *vars, t_map *map, size_t x, size_t y);
+void			manage_input(void *param);
 
 #endif

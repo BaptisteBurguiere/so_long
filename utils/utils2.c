@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bburguie <bburguie@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: bburguie <bburguie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 23:24:46 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/06 00:30:13 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/10 14:56:08 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,10 @@ char	*ft_strdup(char *str)
 	}
 	dup[i] = 0;
 	return (dup);
+}
+
+unsigned long	rgba_to_long(int r, int g, int b, int a)
+{
+	return (((r & 0xff) << 24) + ((g & 0xff) << 16)
+		+ ((b & 0xff) << 8) + (a & 0xff));
 }

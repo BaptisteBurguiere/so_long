@@ -14,6 +14,7 @@ CFILES = main.c \
 		view/init_view.c \
 		view/display_map.c \
 		view/get_texture.c \
+		view/controls.c \
 
 OFILES = $(CFILES:.c=.o)
 

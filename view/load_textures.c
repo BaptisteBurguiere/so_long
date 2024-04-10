@@ -6,17 +6,11 @@
 /*   By: bburguie <bburguie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 15:30:19 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/10 14:11:56 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/10 14:56:03 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
-
-unsigned long	rgba_to_long(int r, int g, int b, int a)
-{
-	return (((r & 0xff) << 24) + ((g & 0xff) << 16)
-		+ ((b & 0xff) << 8) + (a & 0xff));
-}
 
 void	convert_texture(t_texture *my_texture, mlx_texture_t *mlx_texture)
 {
@@ -57,10 +51,8 @@ bool	load_texture(t_texture *texture, char *path)
 	return (true);
 }
 
-bool	load_textures(t_view_vars *vars)
+bool	load_textures_walls(t_view_vars *vars)
 {
-	if (!load_texture(&(vars->floor), TEXTURE_FLOOR))
-		return (false);
 	if (!load_texture(&(vars->t_wall), TEXTURE_TOP_WALL))
 		return (false);
 	if (!load_texture(&(vars->b_wall), TEXTURE_BOTTOM_WALL))
@@ -78,6 +70,15 @@ bool	load_textures(t_view_vars *vars)
 	if (!load_texture(&(vars->r_br_wall), TEXTURE_R_BOTTOM_RIGHT_WALL))
 		return (false);
 	if (!load_texture(&(vars->r_bl_wall), TEXTURE_R_BOTTOM_LEFT_WALL))
+		return (false);
+	return (true);
+}
+
+bool	load_textures(t_view_vars *vars)
+{
+	if (!load_textures_walls(vars))
+		return (false);
+	if (!load_texture(&(vars->floor), TEXTURE_FLOOR))
 		return (false);
 	if (!load_texture(&(vars->exit_o), TEXTURE_EXIT_OPEN))
 		return (false);

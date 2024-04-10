@@ -6,13 +6,13 @@
 /*   By: bburguie <bburguie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:34:59 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/10 14:47:08 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/10 14:53:56 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void	set_size(t_view_vars *vars, t_map *map)
+static void	set_size(t_view_vars *vars, t_map *map)
 {
 	if (map->width * BLOCK_SIZE > MAX_WIDTH)
 		vars->width = (MAX_WIDTH / BLOCK_SIZE) * BLOCK_SIZE;
@@ -24,7 +24,7 @@ void	set_size(t_view_vars *vars, t_map *map)
 		vars->height = map->height * BLOCK_SIZE;
 }
 
-bool	init_view(t_view_vars *vars, t_map *map)
+static void	init_view_vars(t_view_vars *vars)
 {
 	vars->b_wall.tab = NULL;
 	vars->exit_o.tab = NULL;
@@ -42,6 +42,11 @@ bool	init_view(t_view_vars *vars, t_map *map)
 	vars->bl_wall.tab = NULL;
 	vars->r_br_wall.tab = NULL;
 	vars->r_bl_wall.tab = NULL;
+}
+
+bool	init_view(t_view_vars *vars, t_map *map)
+{
+	init_view_vars(vars);
 	if (!load_textures(vars))
 		return (false);
 	set_size(vars, map);

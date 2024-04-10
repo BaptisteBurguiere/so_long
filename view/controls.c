@@ -1,0 +1,86 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   controls.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bburguie <bburguie@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/10 15:17:02 by bburguie          #+#    #+#             */
+/*   Updated: 2024/04/10 16:34:46 by bburguie         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../so_long.h"
+
+void	check_move(t_map *map, size_t coord[2])
+{
+	if (!is_wall(map->map[coord[1]][coord[0]]))
+	{
+		if (map->map[coord[1]][coord[0]] == EXIT && map->nb_items == 0)
+			map->is_running = false;
+		if (map->map[coord[1]][coord[0]] == ITEM)
+		{
+			map->nb_items -= 1;
+			map->map[coord[1]][coord[0]] = FLOOR;
+		}
+		map->player[0] = coord[0];
+		map->player[1] = coord[1];
+	}
+}
+
+void	move(t_map *map, t_move dir, bool *can_move)
+{
+	size_t	coord[2];
+
+	if (!(*can_move))
+		return ;
+	coord[0] = map->player[0];
+	coord[1] = map->player[1];
+	if (dir == up)
+		coord[1] -= 1;
+	else if (dir == down)
+		coord[1] += 1;
+	else if (dir == left)
+		coord[0] -= 1;
+	else if (dir == right)
+		coord[0] += 1;
+	*can_move = false;
+	check_move(map, coord);
+}
+
+void	manage_move(t_controller *controller)
+{
+	if (mlx_is_key_down(controller->view->mlx, MLX_KEY_W))
+		move(controller->map, up, &(controller->can_move.up));
+	else
+		controller->can_move.up = true;
+	if (mlx_is_key_down(controller->view->mlx, MLX_KEY_S))
+		move(controller->map, down, &(controller->can_move.down));
+	else
+		controller->can_move.down = true;
+	if (mlx_is_key_down(controller->view->mlx, MLX_KEY_A))
+		move(controller->map, left, &(controller->can_move.left));
+	else
+		controller->can_move.left = true;
+	if (mlx_is_key_down(controller->view->mlx, MLX_KEY_D))
+		move(controller->map, right, &(controller->can_move.right));
+	else
+		controller->can_move.right = true;
+}
+
+void	manage_input(void *param)
+{
+	t_controller	*controller;
+
+	controller = (t_controller *)param;
+	if (!controller->map->is_running
+		|| mlx_is_key_down(controller->view->mlx, MLX_KEY_ESCAPE))
+	{
+		destroy_view(controller->view);
+		destroy_map(controller->map);
+		exit(EXIT_SUCCESS);
+	}
+	manage_move(controller);
+	display_map(controller->view, controller->map);
+	display_player(controller->view, controller->map->player);
+}

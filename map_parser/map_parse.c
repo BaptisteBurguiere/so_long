@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bburguie <bburguie@student.42lehavre.fr    +#+  +:+       +#+        */
+/*   By: bburguie <bburguie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 18:17:57 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/05 23:18:11 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/10 15:36:39 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ t_map	*parse_file(char *file_path)
 		destroy_map(map);
 		return (NULL);
 	}
+	map->is_running = true;
 	return (map);
 }
 
