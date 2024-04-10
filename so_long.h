@@ -6,7 +6,7 @@
 /*   By: bburguie <bburguie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 18:27:37 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/09 18:10:30 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/10 14:47:39 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,11 @@
 # include <unistd.h>
 # include <stdio.h>
 
-# define WALL '1'
 # define FLOOR '0'
 # define ITEM 'C'
 # define EXIT 'E'
 # define PLAYER 'P'
-# define FILL '2'
+# define FILL 'Z'
 # define TEXTURE_TOP_WALL "textures/top_wall.png"
 # define TEXTURE_BOTTOM_WALL "textures/bottom_wall.png"
 # define TEXTURE_LEFT_WALL "textures/left_wall.png"
@@ -37,13 +36,15 @@
 # define TEXTURE_FULL_WALL "textures/wall_full.png"
 # define TEXTURE_BOTTOM_RIGHT_WALL "textures/bottom_right_wall.png"
 # define TEXTURE_BOTTOM_LEFT_WALL "textures/bottom_left_wall.png"
+# define TEXTURE_R_BOTTOM_RIGHT_WALL "textures/reverse_bottom_right_wall.png"
+# define TEXTURE_R_BOTTOM_LEFT_WALL "textures/reverse_bottom_left_wall.png"
 # define TEXTURE_FLOOR "textures/floor.png"
 # define TEXTURE_ITEM "textures/item.png"
 # define TEXTURE_PLAYER "textures/player.png"
 # define TEXTURE_EXIT_CLOSE "textures/exit_closed.png"
 # define TEXTURE_EXIT_OPEN "textures/exit_opened.png"
-# define WIDTH 900
-# define HEIGHT 900
+# define MAX_WIDTH 1920
+# define MAX_HEIGHT 994
 # define BLOCK_SIZE 64
 
 typedef struct s_map
@@ -87,6 +88,8 @@ typedef struct s_view_vars
 	t_texture	f_wall;
 	t_texture	br_wall;
 	t_texture	bl_wall;
+	t_texture	r_br_wall;
+	t_texture	r_bl_wall;
 	t_texture	floor;
 	t_texture	player;
 	t_texture	item;
@@ -94,7 +97,22 @@ typedef struct s_view_vars
 	t_texture	exit_c;
 	mlx_t		*mlx;
 	mlx_image_t	*img;
+	size_t		width;
+	size_t		height;
 }	t_view_vars;
+
+typedef enum e_wall
+{
+	wall_top = '1',
+	wall_bottom = '2',
+	wall_left = '3',
+	wall_right = '4',
+	wall_full = '5',
+	wall_bottom_right = '6',
+	wall_bottom_left = '7',
+	wall_r_bottom_right = '8',
+	wall_r_bottom_left = '9',
+}	t_wall;
 
 // Map parser
 
@@ -113,10 +131,11 @@ char		*get_next_line(int fd);
 void		destroy_map(t_map *map);
 size_t		ft_strlen(char *str);
 char		*ft_strdup(char *str);
+bool		is_wall(char c);
 
 // View
 
-bool		init_view(t_view_vars *vars);
+bool		init_view(t_view_vars *vars, t_map *map);
 void		destroy_view(t_view_vars *vars);
 bool		load_textures(t_view_vars *vars);
 void		destroy_texture(t_texture *texture);

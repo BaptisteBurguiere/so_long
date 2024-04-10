@@ -6,7 +6,7 @@
 /*   By: bburguie <bburguie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 18:14:24 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/09 17:09:54 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/10 14:47:58 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(int argc, char **argv)
 	map = map_parse(argc, argv);
 	if (!map)
 		exit(EXIT_FAILURE);
-	if (!init_view(&view_vars))
+	if (!init_view(&view_vars, map))
 	{
 		destroy_view(&view_vars);
 		destroy_map(map);

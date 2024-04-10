@@ -6,11 +6,26 @@
 /*   By: bburguie <bburguie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 18:42:03 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/09 16:59:42 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/10 14:14:22 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
+
+bool	is_wall(char c)
+{
+	const char	walls[] = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
+	size_t		i;
+
+	i = 0;
+	while (walls[i])
+	{
+		if (c == walls[i])
+			return (true);
+		i++;
+	}
+	return (false);
+}
 
 bool	check_top_bottom(char *line)
 {
@@ -19,7 +34,7 @@ bool	check_top_bottom(char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] != WALL)
+		if (!is_wall(line[i]))
 			return (false);
 		i++;
 	}
@@ -49,7 +64,7 @@ bool	check_char(size_t x, size_t y, t_map *map, t_check_map_vars *vars)
 		map->nb_items += 1;
 		vars->is_item = true;
 	}
-	else if (map->map[y][x] != WALL && map->map[y][x] != FLOOR)
+	else if (!is_wall(map->map[y][x]) && map->map[y][x] != FLOOR)
 		return (return_error("so_long Error:\nInvalid character\n"));
 	return (true);
 }
@@ -69,7 +84,7 @@ bool	check_line(char *line, t_map *map, size_t i, t_check_map_vars *vars)
 		}
 		return (true);
 	}
-	if (line[0] != WALL || line[ft_strlen(line) - 1] != WALL)
+	if (!is_wall(line[0]) || !is_wall(line[ft_strlen(line) - 1]))
 		return (return_error("so_long Error:\nMap must be framed by walls\n"));
 	j = 1;
 	while (line[j])

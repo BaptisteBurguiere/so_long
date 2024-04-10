@@ -6,7 +6,7 @@
 /*   By: bburguie <bburguie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 15:30:19 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/09 18:12:00 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/10 14:11:56 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,10 @@ bool	load_textures(t_view_vars *vars)
 	if (!load_texture(&(vars->br_wall), TEXTURE_BOTTOM_RIGHT_WALL))
 		return (false);
 	if (!load_texture(&(vars->bl_wall), TEXTURE_BOTTOM_LEFT_WALL))
+		return (false);
+	if (!load_texture(&(vars->r_br_wall), TEXTURE_R_BOTTOM_RIGHT_WALL))
+		return (false);
+	if (!load_texture(&(vars->r_bl_wall), TEXTURE_R_BOTTOM_LEFT_WALL))
 		return (false);
 	if (!load_texture(&(vars->exit_o), TEXTURE_EXIT_OPEN))
 		return (false);
