@@ -6,7 +6,7 @@
 /*   By: bburguie <bburguie@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 18:38:30 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/11 16:05:47 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:22:26 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static void	map_init(t_map *map)
 	map->player.x = 0;
 	map->player.y = 0;
 	map->player.dir = 'r';
+	map->nb_step = 0;
 }
 
 bool	fill_map(t_map *map, int file_fd)

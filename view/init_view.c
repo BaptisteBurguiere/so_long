@@ -6,7 +6,7 @@
 /*   By: bburguie <bburguie@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:34:59 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/11 15:59:47 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/11 17:30:16 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ static void	set_size(t_view_vars *vars, t_map *map)
 		vars->width = (MAX_WIDTH / BLOCK_SIZE) * BLOCK_SIZE;
 	else
 		vars->width = map->width * BLOCK_SIZE;
-	if (map->height * BLOCK_SIZE > MAX_HEIGHT)
-		vars->height = (MAX_HEIGHT / BLOCK_SIZE) * BLOCK_SIZE;
+	if (map->height * BLOCK_SIZE > MAX_HEIGHT - HUD_HEIGHT)
+		vars->height = ((MAX_HEIGHT - HUD_HEIGHT) / BLOCK_SIZE) * BLOCK_SIZE;
 	else
-		vars->height = map->height * BLOCK_SIZE;
+		vars->height = (map->height * BLOCK_SIZE) + HUD_HEIGHT;
 }
 
 static void	init_view_vars(t_view_vars *vars)
@@ -31,6 +31,8 @@ static void	init_view_vars(t_view_vars *vars)
 	vars->exit_c.tab = NULL;
 	vars->floor.tab = NULL;
 	vars->img = NULL;
+	vars->img_hud_step = NULL;
+	vars->img_hud_items = NULL;
 	vars->item.tab = NULL;
 	vars->l_wall.tab = NULL;
 	vars->mlx = NULL;

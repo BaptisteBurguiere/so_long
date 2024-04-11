@@ -6,7 +6,7 @@
 /*   By: bburguie <bburguie@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 18:27:37 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/11 16:10:41 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/11 17:36:22 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@
 # define MAX_WIDTH 1920
 # define MAX_HEIGHT 994
 # define BLOCK_SIZE 64
+# define HUD_HEIGHT 128
+# define HUD_BORDER_WIDTH 3
+# define HUD_PADDING 5
+# define HUD_BORDER_COLOR 0xF3F3F3FF
+# define HUD_BG_COLOR 0x25131AFF
 
 typedef struct s_player
 {
@@ -63,6 +68,7 @@ typedef struct s_map
 	t_player	player;
 	size_t		nb_items;
 	bool		is_running;
+	size_t		nb_step;
 }	t_map;
 
 typedef struct s_check_map_vars
@@ -107,6 +113,8 @@ typedef struct s_view_vars
 	t_texture	exit_c;
 	mlx_t		*mlx;
 	mlx_image_t	*img;
+	mlx_image_t	*img_hud_step;
+	mlx_image_t	*img_hud_items;
 	size_t		width;
 	size_t		height;
 }	t_view_vars;
@@ -166,6 +174,7 @@ size_t			ft_strlen(char *str);
 char			*ft_strdup(char *str);
 bool			is_wall(char c);
 unsigned long	rgba_to_long(int r, int g, int b, int a);
+char			*ft_itoa(int n);
 
 // View
 
@@ -175,6 +184,7 @@ bool			load_textures(t_view_vars *vars);
 void			destroy_texture(t_texture *texture);
 void			display_map(t_view_vars *vars, t_map *map);
 void			display_player(t_view_vars *vars, t_player player);
+void			display_hud(t_view_vars *vars, t_map *map);
 t_texture		*get_texture(t_view_vars *vars, t_map *map, size_t x, size_t y);
 void			manage_input(void *param);
 

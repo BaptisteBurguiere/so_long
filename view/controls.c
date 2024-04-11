@@ -6,7 +6,7 @@
 /*   By: bburguie <bburguie@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:17:02 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/11 16:12:39 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/11 17:15:42 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	check_move(t_map *map, size_t coord[2])
 {
+	if (map->player.x == coord[0] && map->player.y == coord[1])
+		return ;
 	if (!is_wall(map->map[coord[1]][coord[0]]))
 	{
 		if (map->map[coord[1]][coord[0]] == EXIT && map->nb_items == 0)
@@ -25,6 +27,7 @@ void	check_move(t_map *map, size_t coord[2])
 		}
 		map->player.x = coord[0];
 		map->player.y = coord[1];
+		map->nb_step += 1;
 	}
 }
 
@@ -44,15 +47,13 @@ void	move(t_map *map, t_move dir, bool *can_move)
 	{
 		if (map->player.dir == 'l')
 			coord[0] -= 1;
-		else
-			map->player.dir = 'l';
+		map->player.dir = 'l';
 	}
 	else if (dir == right)
 	{
 		if (map->player.dir == 'r')
 			coord[0] += 1;
-		else
-			map->player.dir = 'r';
+		map->player.dir = 'r';
 	}
 	*can_move = false;
 	check_move(map, coord);
@@ -93,4 +94,5 @@ void	manage_input(void *param)
 	manage_move(controller);
 	display_map(controller->view, controller->map);
 	display_player(controller->view, controller->map->player);
+	display_hud(controller->view, controller->map);
 }
