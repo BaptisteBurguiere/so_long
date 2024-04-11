@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   floodfill.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bburguie <bburguie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bburguie <bburguie@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 23:18:26 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/09 17:26:56 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:06:22 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ bool	floodfill(t_map *map)
 		map_dup[i] = ft_strdup(map->map[i]);
 		i++;
 	}
-	check_next(map_dup, map->player[0], map->player[1]);
+	check_next(map_dup, map->player.x, map->player.y);
 	ret = check_map_dup(map, map_dup);
 	i = 0;
 	while (i < map->height)

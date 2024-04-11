@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bburguie <bburguie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bburguie <bburguie@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 18:27:37 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/10 16:29:10 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:10:41 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,29 @@
 # define TEXTURE_R_BOTTOM_LEFT_WALL "textures/reverse_bottom_left_wall.png"
 # define TEXTURE_FLOOR "textures/floor.png"
 # define TEXTURE_ITEM "textures/item.png"
-# define TEXTURE_PLAYER "textures/player.png"
+# define TEXTURE_PLAYER_RIGHT "textures/player_right.png"
+# define TEXTURE_PLAYER_LEFT "textures/player_left.png"
 # define TEXTURE_EXIT_CLOSE "textures/exit_closed.png"
 # define TEXTURE_EXIT_OPEN "textures/exit_opened.png"
 # define MAX_WIDTH 1920
 # define MAX_HEIGHT 994
 # define BLOCK_SIZE 64
 
+typedef struct s_player
+{
+	size_t	x;
+	size_t	y;
+	char	dir;
+}	t_player;
+
 typedef struct s_map
 {
-	char	**map;
-	size_t	height;
-	size_t	width;
-	size_t	player[2];
-	size_t	nb_items;
-	bool	is_running;
+	char		**map;
+	size_t		height;
+	size_t		width;
+	t_player	player;
+	size_t		nb_items;
+	bool		is_running;
 }	t_map;
 
 typedef struct s_check_map_vars
@@ -92,7 +100,8 @@ typedef struct s_view_vars
 	t_texture	r_br_wall;
 	t_texture	r_bl_wall;
 	t_texture	floor;
-	t_texture	player;
+	t_texture	player_right;
+	t_texture	player_left;
 	t_texture	item;
 	t_texture	exit_o;
 	t_texture	exit_c;
@@ -165,7 +174,7 @@ void			destroy_view(t_view_vars *vars);
 bool			load_textures(t_view_vars *vars);
 void			destroy_texture(t_texture *texture);
 void			display_map(t_view_vars *vars, t_map *map);
-void			display_player(t_view_vars *vars, size_t player[2]);
+void			display_player(t_view_vars *vars, t_player player);
 t_texture		*get_texture(t_view_vars *vars, t_map *map, size_t x, size_t y);
 void			manage_input(void *param);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bburguie <bburguie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bburguie <bburguie@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:17:02 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/10 16:34:46 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:12:39 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	check_move(t_map *map, size_t coord[2])
 			map->nb_items -= 1;
 			map->map[coord[1]][coord[0]] = FLOOR;
 		}
-		map->player[0] = coord[0];
-		map->player[1] = coord[1];
+		map->player.x = coord[0];
+		map->player.y = coord[1];
 	}
 }
 
@@ -34,16 +34,26 @@ void	move(t_map *map, t_move dir, bool *can_move)
 
 	if (!(*can_move))
 		return ;
-	coord[0] = map->player[0];
-	coord[1] = map->player[1];
+	coord[0] = map->player.x;
+	coord[1] = map->player.y;
 	if (dir == up)
 		coord[1] -= 1;
 	else if (dir == down)
 		coord[1] += 1;
 	else if (dir == left)
-		coord[0] -= 1;
+	{
+		if (map->player.dir == 'l')
+			coord[0] -= 1;
+		else
+			map->player.dir = 'l';
+	}
 	else if (dir == right)
-		coord[0] += 1;
+	{
+		if (map->player.dir == 'r')
+			coord[0] += 1;
+		else
+			map->player.dir = 'r';
+	}
 	*can_move = false;
 	check_move(map, coord);
 }

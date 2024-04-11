@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_texture.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bburguie <bburguie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bburguie <bburguie@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 17:40:22 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/10 14:17:48 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:13:27 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ t_texture	*get_texture(t_view_vars *vars, t_map *map, size_t x, size_t y)
 		return (&(vars->exit_o));
 	else if (map->map[y][x] == ITEM)
 		return (&(vars->item));
-	else if (map->map[y][x] == PLAYER)
-		return (&(vars->player));
 	else if (is_wall(map->map[y][x]))
 		return (get_texture_wall(vars, map, x, y));
 	return (NULL);

@@ -22,7 +22,7 @@ MLX_DIR = MLX42/
 MLX_LIB = MLX42/build/libmlx42.a
 
 $(NAME): $(MLX_LIB) $(OFILES)
-	$(CC) $(CFLAGS) -IMLX42/include -LMLX42/build $(OFILES) -o $(NAME) -ldl -lglfw -pthread -lmlx42 -lm
+	$(CC) $(CFLAGS) -IMLX42/include -LMLX42/build $(OFILES) -o $(NAME) -lmlx42 -ldl -lglfw -pthread -lm
 
 all: $(NAME) clean
 
@@ -40,7 +40,6 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
-	# make -C MLX42/build clean
 
 re: fclean $(NAME)
 

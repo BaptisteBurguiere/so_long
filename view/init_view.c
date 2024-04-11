@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_view.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bburguie <bburguie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bburguie <bburguie@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:34:59 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/10 14:53:56 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/11 15:59:47 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ static void	init_view_vars(t_view_vars *vars)
 	vars->item.tab = NULL;
 	vars->l_wall.tab = NULL;
 	vars->mlx = NULL;
-	vars->player.tab = NULL;
+	vars->player_left.tab = NULL;
+	vars->player_right.tab = NULL;
 	vars->r_wall.tab = NULL;
 	vars->t_wall.tab = NULL;
 	vars->f_wall.tab = NULL;
@@ -67,7 +68,8 @@ void	destroy_view(t_view_vars *vars)
 	destroy_texture(&(vars->exit_c));
 	destroy_texture(&(vars->floor));
 	destroy_texture(&(vars->item));
-	destroy_texture(&(vars->player));
+	destroy_texture(&(vars->player_left));
+	destroy_texture(&(vars->player_right));
 	destroy_texture(&(vars->t_wall));
 	destroy_texture(&(vars->b_wall));
 	destroy_texture(&(vars->l_wall));

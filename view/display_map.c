@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bburguie <bburguie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bburguie <bburguie@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:02:05 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/10 15:52:45 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:10:18 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,25 @@ void	display_elt(t_view_vars *vars, t_map *map, size_t x, size_t y)
 	}
 }
 
-void	display_player(t_view_vars *vars, size_t player[2])
+void	display_player(t_view_vars *vars, t_player player)
 {
 	size_t			i;
 	size_t			j;
 	unsigned long	color;
+	t_texture		*texture;
 
-	i = player[1] * BLOCK_SIZE;
-	while (i - (player[1] * BLOCK_SIZE) < BLOCK_SIZE)
+	if (player.dir == 'r')
+		texture = &(vars->player_right);
+	else
+		texture = &(vars->player_left);
+	i = player.y * BLOCK_SIZE;
+	while (i - (player.y * BLOCK_SIZE) < BLOCK_SIZE)
 	{
-		j = player[0] * BLOCK_SIZE;
-		while (j - (player[0] * BLOCK_SIZE) < BLOCK_SIZE)
+		j = player.x * BLOCK_SIZE;
+		while (j - (player.x * BLOCK_SIZE) < BLOCK_SIZE)
 		{
-			color = get_color(j - (player[0] * BLOCK_SIZE),
-					i - (player[1] * BLOCK_SIZE), &(vars->player));
+			color = get_color(j - (player.x * BLOCK_SIZE),
+					i - (player.y * BLOCK_SIZE), texture);
 			if (color > 0)
 				mlx_put_pixel(vars->img, j, i, color);
 			j++;

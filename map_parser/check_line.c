@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bburguie <bburguie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bburguie <bburguie@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 18:42:03 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/10 16:03:21 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:06:03 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ bool	check_char(size_t x, size_t y, t_map *map, t_check_map_vars *vars)
 			return (return_error(
 					"so_long Error:\nMultiple player start positions\n"));
 		vars->is_player = true;
-		map->player[0] = vars->x;
-		map->player[1] = vars->y;
+		map->player.x = vars->x;
+		map->player.y = vars->y;
 		map->map[y][x] = FLOOR;
 	}
 	else if (map->map[y][x] == EXIT)

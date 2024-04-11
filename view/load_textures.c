@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bburguie <bburguie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bburguie <bburguie@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 15:30:19 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/10 14:56:03 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/11 15:59:13 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,9 @@ bool	load_textures(t_view_vars *vars)
 		return (false);
 	if (!load_texture(&(vars->item), TEXTURE_ITEM))
 		return (false);
-	if (!load_texture(&(vars->player), TEXTURE_PLAYER))
+	if (!load_texture(&(vars->player_right), TEXTURE_PLAYER_RIGHT))
+		return (false);
+	if (!load_texture(&(vars->player_left), TEXTURE_PLAYER_LEFT))
 		return (false);
 	return (true);
 }
