@@ -6,7 +6,7 @@
 /*   By: bburguie <bburguie@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 18:27:37 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/11 17:36:22 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/12 18:42:17 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@
 # define HUD_PADDING 5
 # define HUD_BORDER_COLOR 0xF3F3F3FF
 # define HUD_BG_COLOR 0x25131AFF
+# define CAMERA_OFFSET 4
 
 typedef struct s_player
 {
@@ -105,6 +106,8 @@ typedef struct s_view_vars
 	t_texture	bl_wall;
 	t_texture	r_br_wall;
 	t_texture	r_bl_wall;
+	t_texture	tl_in_wall;
+	t_texture	tr_in_wall;
 	t_texture	floor;
 	t_texture	player_right;
 	t_texture	player_left;
@@ -117,6 +120,9 @@ typedef struct s_view_vars
 	mlx_image_t	*img_hud_items;
 	size_t		width;
 	size_t		height;
+	size_t		camera[2];
+	size_t		block_width;
+	size_t		block_height;
 }	t_view_vars;
 
 typedef struct s_can_move

@@ -6,7 +6,7 @@
 /*   By: bburguie <bburguie@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:17:02 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/11 17:15:42 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/12 17:54:50 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,22 @@ void	move(t_map *map, t_move dir, bool *can_move)
 	check_move(map, coord);
 }
 
+void	check_camera(t_map *map, t_view_vars *view)
+{
+	if (map->player.x >= view->block_width + view->camera[0] - CAMERA_OFFSET
+		&& view->block_width + view->camera[0] < map->width)
+		view->camera[0] += 1;
+	else if (map->player.x < view->camera[0] + CAMERA_OFFSET
+		&& view->camera[0] > 0)
+		view->camera[0] -= 1;
+	if (map->player.y >= view->block_height + view->camera[1] - CAMERA_OFFSET
+		&& view->block_height + view->camera[1] < map->height)
+		view->camera[1] += 1;
+	else if (map->player.y < view->camera[1] + CAMERA_OFFSET
+		&& view->camera[1] > 0)
+		view->camera[1] -= 1;
+}
+
 void	manage_move(t_controller *controller)
 {
 	if (mlx_is_key_down(controller->view->mlx, MLX_KEY_W))
@@ -77,6 +93,8 @@ void	manage_move(t_controller *controller)
 		move(controller->map, right, &(controller->can_move.right));
 	else
 		controller->can_move.right = true;
+	check_camera(controller->map, controller->view);
+	
 }
 
 void	manage_input(void *param)

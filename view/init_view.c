@@ -6,7 +6,7 @@
 /*   By: bburguie <bburguie@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:34:59 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/11 17:30:16 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/12 18:51:49 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,37 @@
 static void	set_size(t_view_vars *vars, t_map *map)
 {
 	if (map->width * BLOCK_SIZE > MAX_WIDTH)
+	{
 		vars->width = (MAX_WIDTH / BLOCK_SIZE) * BLOCK_SIZE;
+		vars->block_width = MAX_WIDTH / BLOCK_SIZE;
+	}
 	else
+	{
 		vars->width = map->width * BLOCK_SIZE;
+		vars->block_width = map->width;
+	}
 	if (map->height * BLOCK_SIZE > MAX_HEIGHT - HUD_HEIGHT)
-		vars->height = ((MAX_HEIGHT - HUD_HEIGHT) / BLOCK_SIZE) * BLOCK_SIZE;
+	{
+		vars->height = (MAX_HEIGHT / BLOCK_SIZE) * BLOCK_SIZE;
+		vars->block_height = (MAX_HEIGHT - HUD_HEIGHT) / BLOCK_SIZE;
+	}
 	else
+	{
 		vars->height = (map->height * BLOCK_SIZE) + HUD_HEIGHT;
+		vars->block_height = map->height;
+	}
+}
+
+static void	set_camera(t_view_vars *vars, t_map *map)
+{
+	if (vars->block_width != map->width && map->player.x > vars->block_width - CAMERA_OFFSET)
+		vars->camera[0] = map->player.x - vars->block_width + CAMERA_OFFSET - 2;
+	else
+		vars->camera[0] = 0;
+	if (vars->block_height != map->height && map->player.y > vars->block_height - CAMERA_OFFSET)
+		vars->camera[1] = map->player.y - vars->block_height + CAMERA_OFFSET - 2;
+	else
+		vars->camera[1] = 0;
 }
 
 static void	init_view_vars(t_view_vars *vars)
@@ -53,6 +77,7 @@ bool	init_view(t_view_vars *vars, t_map *map)
 	if (!load_textures(vars))
 		return (false);
 	set_size(vars, map);
+	set_camera(vars, map);
 	vars->mlx = mlx_init(vars->width, vars->height, "so_long", false);
 	if (!vars->mlx)
 		return (false);

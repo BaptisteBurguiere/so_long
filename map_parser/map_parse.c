@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bburguie <bburguie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bburguie <bburguie@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 18:17:57 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/10 15:36:39 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/12 17:07:59 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@ bool	check_map(t_map *map)
 			return (false);
 		i++;
 	}
+	if (!vars.is_player)
+		return (return_error("so_long Error:\nMissing player\n"));
+	if (!vars.is_exit)
+		return (return_error("so_long Error:\nMissing exit\n"));
+	if (!vars.is_item)
+		return (return_error("so_long Error:\nMissing items\n"));
 	return (true);
 }
 

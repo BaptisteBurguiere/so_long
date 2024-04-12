@@ -6,7 +6,7 @@
 /*   By: bburguie <bburguie@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:02:05 by bburguie          #+#    #+#             */
-/*   Updated: 2024/04/11 16:10:18 by bburguie         ###   ########.fr       */
+/*   Updated: 2024/04/12 15:30:05 by bburguie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,18 @@ void	display_elt(t_view_vars *vars, t_map *map, size_t x, size_t y)
 	size_t			j;
 	unsigned long	color;
 
-	i = y * BLOCK_SIZE;
-	while (i - (y * BLOCK_SIZE) < BLOCK_SIZE)
+	i = (y - vars->camera[1]) * BLOCK_SIZE;
+	while (i - ((y - vars->camera[1]) * BLOCK_SIZE) < BLOCK_SIZE)
 	{
-		j = x * BLOCK_SIZE;
-		while (j - (x * BLOCK_SIZE) < BLOCK_SIZE)
+		j = (x - vars->camera[0]) * BLOCK_SIZE;
+		while (j - ((x - vars->camera[0]) * BLOCK_SIZE) < BLOCK_SIZE)
 		{
-			color = get_color(j - (x * BLOCK_SIZE),
-					i - (y * BLOCK_SIZE), get_texture(vars, map, x, y));
+			color = get_color(j - ((x - vars->camera[0]) * BLOCK_SIZE),
+					i - ((y - vars->camera[1]) * BLOCK_SIZE), get_texture(vars, map, x, y));
 			if (color == 0)
 			{
-				color = get_color(j - (x * BLOCK_SIZE),
-						i - (y * BLOCK_SIZE), &(vars->floor));
+				color = get_color(j - ((x - vars->camera[0]) * BLOCK_SIZE),
+						i - ((y - vars->camera[1]) * BLOCK_SIZE), &(vars->floor));
 			}
 			mlx_put_pixel(vars->img, j, i, color);
 			j++;
@@ -62,14 +62,14 @@ void	display_player(t_view_vars *vars, t_player player)
 		texture = &(vars->player_right);
 	else
 		texture = &(vars->player_left);
-	i = player.y * BLOCK_SIZE;
-	while (i - (player.y * BLOCK_SIZE) < BLOCK_SIZE)
+	i = (player.y - vars->camera[1]) * BLOCK_SIZE;
+	while (i - ((player.y - vars->camera[1]) * BLOCK_SIZE) < BLOCK_SIZE)
 	{
-		j = player.x * BLOCK_SIZE;
-		while (j - (player.x * BLOCK_SIZE) < BLOCK_SIZE)
+		j = (player.x - vars->camera[0]) * BLOCK_SIZE;
+		while (j - ((player.x - vars->camera[0]) * BLOCK_SIZE) < BLOCK_SIZE)
 		{
-			color = get_color(j - (player.x * BLOCK_SIZE),
-					i - (player.y * BLOCK_SIZE), texture);
+			color = get_color(j - ((player.x - vars->camera[0]) * BLOCK_SIZE),
+					i - ((player.y - vars->camera[1]) * BLOCK_SIZE), texture);
 			if (color > 0)
 				mlx_put_pixel(vars->img, j, i, color);
 			j++;
@@ -83,11 +83,11 @@ void	display_map(t_view_vars *vars, t_map *map)
 	size_t	i;
 	size_t	j;
 
-	i = 0;
-	while (i < map->height)
+	i = vars->camera[1];
+	while (i < vars->block_height + vars->camera[1])
 	{
-		j = 0;
-		while (j < map->width)
+		j = vars->camera[0];
+		while (j < vars->block_width + vars->camera[0])
 		{
 			display_elt(vars, map, j, i);
 			j++;
